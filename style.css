@@ -330,7 +330,6 @@ footer {
 
   .top-row {
     flex-direction: row;
-    max-height: 66.5vh;
     gap: 0.5rem;
   }
 
@@ -338,6 +337,8 @@ footer {
     flex: 1;
     max-width: 190px;
     min-width: 160px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .form-history {
