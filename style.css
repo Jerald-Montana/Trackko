@@ -338,6 +338,8 @@ footer {
     flex: 1;
     max-width: 190px;
     min-width: 160px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .form-history {
