@@ -30,6 +30,19 @@ const descInput = document.getElementById("desc");
 const amountInput = document.getElementById("amountInput");
 const historyList = document.getElementById("historyList");
 const yearSelector = document.getElementById("yearSelector");
+const scrollable = document.querySelector(".form-history"); // change selector to your box
+
+let scrollTimeout;
+
+scrollable.addEventListener("scroll", () => {
+  scrollable.classList.add("show-scrollbar");
+
+  clearTimeout(scrollTimeout);
+
+  scrollTimeout = setTimeout(() => {
+    scrollable.classList.remove("show-scrollbar");
+  }, 1000);
+});
 
 const monthNames = [
   "January",
