@@ -209,15 +209,20 @@ function loadMonthTransactions(monthIndex) {
     const item = document.createElement("div");
     item.className = "history-item";
     item.innerHTML = `
-    <span>${t.desc}</span>
-    <span style="color:${t.type === "income" ? "green" : "red"}">
-     ${t.type === "income" ? "+" : "-"}${formatCurrency(t.amount)}
-    </span>
-    <button class="deleteBtn">Delete</button>
-  `;
+      <span>${t.desc}</span>
+      <span style="color:${t.type === "income" ? "green" : "red"}">
+        ${t.type === "income" ? "+" : "-"}${formatCurrency(t.amount)}
+      </span>
+      <button class="delete-btn">
+        <span class="delete-text">Delete</span>
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    `;
+
     historyList.appendChild(item);
 
-    item.querySelector(".deleteBtn").addEventListener("click", async () => {
+    // 🔥 Fix: class name matches now
+    item.querySelector(".delete-btn").addEventListener("click", async () => {
       allTransactions[selectedYear][monthName].splice(idx, 1);
       await saveUserData();
       loadMonthTransactions(monthIndex);

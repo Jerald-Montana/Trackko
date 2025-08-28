@@ -267,17 +267,26 @@ button:hover:not(.active) {
   transform: scale(1.02);
 }
 
-.deleteBtn {
-  padding: 0.2rem 0.5rem;
-  border: none;
+.delete-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
   background: #ff4d4d;
-  color: white;
-  border-radius: 5px;
+  border: none;
+  padding: 0.5rem 0.5rem;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.deleteBtn:hover {
-  opacity: 0.8;
+.delete-btn:hover {
+  background: #e60000;
+}
+
+.delete-btn i {
+  display: none; /* hide trash icon on desktop */
 }
 
 footer {
@@ -359,6 +368,15 @@ footer {
 
   .month .month-text {
     display: none;
+  }
+
+  .delete-btn .delete-text {
+    display: none;
+  }
+  .delete-btn i {
+    display: inline;
+    font-size: 1.2rem;
+    color: white;
   }
 
   .month .month-short {
