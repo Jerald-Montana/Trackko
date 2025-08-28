@@ -117,6 +117,30 @@ header h1 img {
   background: #357abd;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+  transition: background 0.3s ease, opacity 0.3s ease; /* 🔹 smooth animation */
+  opacity: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.show-scrollbar::-webkit-scrollbar-thumb {
+  opacity: 1;
+}
+
 .months .month {
   display: flex;
   justify-content: space-between;
