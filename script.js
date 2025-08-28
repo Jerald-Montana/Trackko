@@ -221,7 +221,6 @@ function loadMonthTransactions(monthIndex) {
 
     historyList.appendChild(item);
 
-    // 🔥 Fix: class name matches now
     item.querySelector(".delete-btn").addEventListener("click", async () => {
       allTransactions[selectedYear][monthName].splice(idx, 1);
       await saveUserData();
