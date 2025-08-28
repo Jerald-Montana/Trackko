@@ -5,7 +5,6 @@ import {
   setDoc,
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-// Get user info
 const nickname = localStorage.getItem("nickname") || "User";
 const userId = localStorage.getItem("uid");
 
@@ -23,7 +22,6 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
   window.location.href = "website.html";
 });
 
-// DOM elements
 const monthsList = document.getElementById("monthsList");
 const incomeBtn = document.getElementById("incomeBtn");
 const expenseBtn = document.getElementById("expenseBtn");
@@ -32,8 +30,20 @@ const descInput = document.getElementById("desc");
 const amountInput = document.getElementById("amountInput");
 const historyList = document.getElementById("historyList");
 const yearSelector = document.getElementById("yearSelector");
+const scrollable = document.querySelector(".form-history"); // change selector to your box
 
-// Months & years
+let scrollTimeout;
+
+scrollable.addEventListener("scroll", () => {
+  scrollable.classList.add("show-scrollbar");
+
+  clearTimeout(scrollTimeout);
+
+  scrollTimeout = setTimeout(() => {
+    scrollable.classList.remove("show-scrollbar");
+  }, 1000);
+});
+
 const monthNames = [
   "January",
   "February",
@@ -69,10 +79,8 @@ let selectedYear = currentYear;
 let selectedMonth = 0;
 let transactionType = null;
 
-// Transactions object: { year: { monthName: [] } }
 let allTransactions = {};
 
-// Populate year selector
 for (let y = currentYear - 5; y <= currentYear + 5; y++) {
   const option = document.createElement("option");
   option.value = y;
@@ -85,18 +93,15 @@ monthNames.forEach((month, index) => {
   const monthEl = document.createElement("div");
   monthEl.classList.add("month");
 
-  // Store both full and short versions as attributes
   monthEl.setAttribute("data-text", month);
-  monthEl.setAttribute("data-short", shortMonthNames[index]); // use abbreviation
+  monthEl.setAttribute("data-short", shortMonthNames[index]);
 
-  // Use spans (CSS will decide which one is visible)
   monthEl.innerHTML = `
     <span class="month-text">${month}</span>
     <span class="month-short">${shortMonthNames[index]}</span>
     <span class="totalValue">₱0</span>
   `;
 
-  // Click handler
   monthEl.addEventListener("click", () => {
     if (selectedMonth !== null) {
       monthsList.children[selectedMonth].classList.remove("selected");
@@ -109,7 +114,6 @@ monthNames.forEach((month, index) => {
   monthsList.appendChild(monthEl);
 });
 
-// Ensure year & months exist
 function ensureYear(year) {
   if (!allTransactions[year]) allTransactions[year] = {};
   monthNames.forEach((m) => {
@@ -117,12 +121,10 @@ function ensureYear(year) {
   });
 }
 
-// ✅ Currency formatter
 function formatCurrency(value) {
   return "₱" + value.toLocaleString("en-PH", { minimumFractionDigits: 2 });
 }
 
-// Load user data from Firestore
 async function loadUserData() {
   const userDocRef = doc(db, "users", userId);
   const docSnap = await getDoc(userDocRef);
@@ -135,22 +137,17 @@ async function loadUserData() {
 
   ensureYear(selectedYear);
 
-  // Update totals for all months
   monthNames.forEach((_, index) => updateMonthTotal(index));
-
-  // Load transactions only for selected month
   loadMonthTransactions(selectedMonth);
 
   updatePieChart();
 }
 
-// Save data to Firestore
 async function saveUserData() {
   const userDocRef = doc(db, "users", userId);
   await setDoc(userDocRef, { transactions: allTransactions }, { merge: true });
 }
 
-// Button toggles
 incomeBtn.addEventListener("click", () => {
   transactionType = "income";
   incomeBtn.classList.add("active");
@@ -163,21 +160,17 @@ expenseBtn.addEventListener("click", () => {
 });
 
 amountInput.addEventListener("input", (e) => {
-  // Remove everything except digits
   let value = e.target.value.replace(/[^\d]/g, "");
 
-  // If empty, show ₱0.00
   if (value === "") {
     e.target.value = "₱0.00";
     return;
   }
 
-  // Convert to number and format with commas
   let numberValue = parseFloat(value);
   e.target.value = "₱" + numberValue.toLocaleString("en-PH");
 });
 
-// ✅ Add transaction
 addBtn.addEventListener("click", async () => {
   if (selectedMonth === null) return alert("Select a month first");
 
@@ -191,13 +184,12 @@ addBtn.addEventListener("click", async () => {
   const monthName = monthNames[selectedMonth];
   allTransactions[selectedYear][monthName].unshift({
     desc,
-    amount, // ✅ save numeric only
+    amount,
     type: transactionType,
   });
   await saveUserData();
   loadMonthTransactions(selectedMonth);
 
-  // ✅ Animate scroll to top
   historyList.scrollTo({
     top: 0,
     behavior: "smooth",
@@ -209,7 +201,6 @@ addBtn.addEventListener("click", async () => {
   amountInput.value = "";
 });
 
-// Load transactions for a month
 function loadMonthTransactions(monthIndex) {
   const monthName = monthNames[monthIndex];
   historyList.innerHTML = "";
@@ -237,7 +228,6 @@ function loadMonthTransactions(monthIndex) {
   updateMonthTotal(monthIndex);
 }
 
-// Update month total and side value
 function updateMonthTotal(monthIndex) {
   const monthName = monthNames[monthIndex];
   const monthDiv = monthsList.children[monthIndex];
@@ -253,7 +243,6 @@ function updateMonthTotal(monthIndex) {
   updatePieChart();
 }
 
-// Pie chart
 const ctx = document.getElementById("pieChart").getContext("2d");
 const pieChart = new Chart(ctx, {
   type: "pie",
@@ -289,7 +278,6 @@ function updatePieChart() {
   );
 }
 
-// Handle year change
 yearSelector.addEventListener("change", () => {
   selectedYear = parseInt(yearSelector.value);
   ensureYear(selectedYear);
@@ -297,5 +285,4 @@ yearSelector.addEventListener("change", () => {
   updatePieChart();
 });
 
-// Initial load
 loadUserData();
