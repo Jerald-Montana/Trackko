@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
 
-/* Reset & Font */
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +15,6 @@ body {
   flex-direction: column;
 }
 
-/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -43,14 +41,12 @@ header h1 img {
   color: #7a85c1;
 }
 
-/* Welcome */
 .welcome {
   text-align: center;
   margin: 1rem 0;
   font-size: 1.5rem;
 }
 
-/* Container */
 .container {
   display: flex;
   gap: 1rem;
@@ -58,7 +54,6 @@ header h1 img {
   align-items: stretch;
 }
 
-/* Top row: months + form-history */
 .top-row {
   display: flex;
   flex: 2;
@@ -66,7 +61,6 @@ header h1 img {
   min-width: 0;
 }
 
-/* Rectangles */
 .months,
 .form-history,
 .summary {
@@ -74,20 +68,53 @@ header h1 img {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* prevent content from overflowing */
+  overflow: hidden;
   background: white;
-  border: 3px solid #1a2a80; /* thicker border */
+  border: 3px solid #1a2a80;
   border-radius: 20px;
   padding: 0.5rem;
-  font-weight: 600; /* font weight */
+  font-weight: 600;
   min-width: 0;
 }
 
-/* Months */
 .months {
   flex: 1;
+  overflow-y: auto;
   max-width: 260px;
   min-width: 210px;
+}
+
+.form-history,
+.months,
+.summary {
+  scrollbar-width: thin;
+  scrollbar-color: #7a85c1 #f1f1f1;
+}
+
+.form-history::-webkit-scrollbar,
+.months::-webkit-scrollbar,
+.summary::-webkit-scrollbar {
+  width: 8px;
+}
+
+.form-history::-webkit-scrollbar-track,
+.months::-webkit-scrollbar-track,
+.summary::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 20px;
+}
+
+.form-history::-webkit-scrollbar-thumb,
+.months::-webkit-scrollbar-thumb,
+.summary::-webkit-scrollbar-thumb {
+  background: #4cafef;
+  border-radius: 10px;
+}
+
+.form-history::-webkit-scrollbar-thumb:hover,
+.months::-webkit-scrollbar-thumb:hover,
+.summary::-webkit-scrollbar-thumb:hover {
+  background: #357abd;
 }
 
 .months .month {
@@ -96,7 +123,7 @@ header h1 img {
   padding: 0.5rem;
   margin: 0.3rem 0;
   border-radius: 20px;
-  border: 2px solid #1a2a80; /* thicker border */
+  border: 2px solid #1a2a80;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -123,19 +150,18 @@ header h1 img {
 }
 
 .form-history > *:not(#historyList) {
-  flex-shrink: 0; /* keep inputs/buttons fixed */
+  flex-shrink: 0;
 }
 
 #historyList {
   flex: 1;
   min-height: 0;
-  overflow-y: auto; /* vertical scroll */
+  overflow-y: auto;
   border: 2px solid #1a2a80;
   border-radius: 20px;
   padding: 0.6rem;
 }
 
-/* Summary */
 .summary {
   flex: 1;
 }
@@ -150,7 +176,6 @@ header h1 img {
   margin: 1rem 0;
 }
 
-/* Inputs & Buttons */
 .desc-input,
 .peso-input {
   display: flex;
@@ -168,7 +193,7 @@ input[type="text"] {
   padding: 0.5rem;
   margin: 0.3rem 0;
   border-radius: 10px;
-  border: 3px solid #1a2a80; /* thicker border */
+  border: 3px solid #1a2a80;
   font-size: 1rem;
   font-weight: 600;
 }
@@ -176,7 +201,7 @@ input[type="text"] {
 button {
   padding: 0.5rem 1rem;
   margin: 0.3rem;
-  border: 2px solid #1a2a80; /* thicker border */
+  border: 2px solid #1a2a80;
   border-radius: 20px;
   background: none;
   cursor: pointer;
@@ -202,13 +227,12 @@ button:hover:not(.active) {
   color: white;
 }
 
-/* Transaction History */
 .history-item {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
   margin: 0.3rem 0;
-  border: 2px solid #1a2a80; /* thicker border */
+  border: 2px solid #1a2a80;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   align-items: center;
@@ -232,7 +256,6 @@ button:hover:not(.active) {
   opacity: 0.8;
 }
 
-/* Footer */
 footer {
   text-align: center;
   padding: 1rem;
@@ -243,20 +266,19 @@ footer {
 
 .year-selector-container {
   display: flex;
-  align-items: center; /* vertically center the icon and select */
+  align-items: center;
   padding: 0.5rem;
 }
 
 .year-selector-container .year-icon {
-  width: 30px; /* set desired width */
-  height: 30px; /* set desired height */
-  object-fit: contain; /* maintain aspect ratio */
-  border-radius: 5px; /* optional: rounded corners */
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 5px;
   color: #1a2a80;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* optional shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Year selector */
 #yearSelector {
   display: inline-block;
   padding: 0.2rem 0.3rem;
@@ -268,7 +290,6 @@ footer {
   font-weight: 600;
 }
 
-/* Month text/icons toggle */
 .month .month-text {
   display: inline;
 }
@@ -276,15 +297,13 @@ footer {
   display: none;
 }
 
-/* --------- Mobile --------- */
 @media (max-width: 800px) {
   .container {
     flex-direction: column;
-    min-height: auto; /* page can expand */
+    min-height: auto;
     padding: 1rem;
   }
 
-  /* keep months + form-history side by side */
   .top-row {
     flex-direction: row;
     max-height: 59vh;
@@ -314,7 +333,7 @@ footer {
   }
 
   .month .month-text {
-    display: none; /* hide full text */
+    display: none;
   }
 
   .month .month-short {

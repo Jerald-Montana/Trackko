@@ -27,6 +27,16 @@ const db = getFirestore(app);
 
 const signupForm = document.getElementById("signupForm");
 const loginForm = document.getElementById("loginForm");
+const signupBtn = document.getElementById("signupBtn");
+const loginBtn = document.getElementById("loginBtn");
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    loginBtn.click();
+
+    signupBtn.click();
+  }
+});
 
 document.getElementById("togglePass").addEventListener("click", () => {
   const pass = document.getElementById("password");
@@ -80,7 +90,7 @@ document.getElementById("signupBtn").addEventListener("click", async () => {
     await setDoc(doc(db, "users", user.uid), { nickname, email });
 
     localStorage.setItem("nickname", nickname);
-    localStorage.setItem("uid", user.uid); // ← ADD THIS LINE
+    localStorage.setItem("uid", user.uid);
     console.log("Nickname saved in Firestore:", nickname);
 
     msg.style.color = "green";
@@ -126,7 +136,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
     if (userDoc.exists()) {
       const data = userDoc.data();
       localStorage.setItem("nickname", data.nickname);
-      localStorage.setItem("uid", uid); // ← ADD THIS LINE
+      localStorage.setItem("uid", uid);
     }
 
     msg.style.color = "green";
